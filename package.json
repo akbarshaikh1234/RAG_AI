@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^2.27.0",
     "@tailwindcss/cli": "^4.3.3",
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.12",
