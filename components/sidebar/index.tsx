@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
@@ -6,6 +8,9 @@ import { BsLayoutSidebar } from "react-icons/bs";
 import { cn } from "@/lib/helpers/cn";
 import { useSidebar } from "@/context/sidebar.provider";
 import { FaRegEdit } from "react-icons/fa";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { useRouter } from "next/navigation";
+
 
 const SideBar = () => {
   const { isExpanded, toggleSidebar } = useSidebar();
@@ -15,7 +20,7 @@ const SideBar = () => {
     <div className={cn("md:border-r border-r-[#ffffff2e] max-w-75 overflow-hidden")}>
       <header className={cn("flex items-center p-4 px-5 w-fit md:hidden")}>
         <button
-          className="cursor-pointer flex items-center hover:bg-gray-300 focus:outline-none"
+          className="cursor-pointer flex items-center focus:outline-none"
           onClick={toggleSidebar}
         >
           <BsLayoutSidebar className="w-4 h-4 text-gray-50" />
@@ -23,12 +28,12 @@ const SideBar = () => {
       </header>
       <motion.aside
         id="sidebar"
-        className={cn("flex flex-col gap-4 relative md:h-full max-md:border-r border-r-[#ffffff2e] bg-black", {
+        className={cn("flex flex-col gap-4 relative md:h-full max-md:border-r border-r-[#ffffff2e] bg-black pr-3", {
           ["absolute z-50 top-0 bottom-0"]: window?.width !== undefined && window.width < 768,
         })}
         initial={false}
         animate={{
-          width: (window?.width !== undefined && window?.width >= 768) ? isExpanded ? "300px" : "56px" : "300px",
+          width: (window?.width !== undefined && window?.width >= 768) ? isExpanded ? "300px" : "70px" : "300px",
           translateX: (window?.width !== undefined && window?.width >= 768) ? "none" : isExpanded ? "0%": "-100%"
         }}
         transition={{
@@ -38,7 +43,7 @@ const SideBar = () => {
       >
         <header className={cn("flex items-center p-4 px-5 w-fit")}>
         <button
-          className="cursor-pointer flex items-center hover:bg-gray-300 focus:outline-none"
+          className="cursor-pointer flex items-center hover:bg-[#2f2f2f] focus:outline-none"
           onClick={toggleSidebar}
         >
           <BsLayoutSidebar className="w-4 h-4 text-gray-50" />
@@ -46,7 +51,8 @@ const SideBar = () => {
       </header>
       
       <SideBarItems items={[
-        { icon: <FaRegEdit className="w-4 h-4 text-gray-50" />, label: "New Chat" },
+        { icon: <FaRegEdit className="w-4 h-4 text-gray-50" />, label: "New Chat", link: "/" },
+        { icon: <IoCloudUploadOutline className="w-4 h-4 text-gray-50" />, label: "Upload Knowledge", link: "/upload" },
       ]} />
     </motion.aside>
 
@@ -57,21 +63,30 @@ const SideBar = () => {
 
 export default SideBar;
 
-const SideBarItems = (props: { items: { icon: any; label: string }[] }) => {
+const SideBarItems = (props: { items: { icon: any; label: string; link: string;}[],  }) => {
   const { items } = props;
   return (<>
       {items.map((item, index) => (
-        <SideBarItem key={index} icon={item.icon} label={item.label} />
+        <SideBarItem key={index} {...item} />
       ))}
     </>
   )
 };
 
-const SideBarItem = ({ icon, label }: { icon: any; label: string }) => {
+const SideBarItem = ({ icon, label, link }: { icon: any; label: string, link: string }) => {
   const { isExpanded } = useSidebar();
 
+  const router = useRouter();
+
+  const navigationHandler=() => {
+    router.push(link);
+  }
+
   return (
-    <div className="flex items-center px-5 py-4 rounded-md cursor-pointer hover:bg-gray-200 w-fit">
+    <div 
+      className="flex items-center px-5 py-4 rounded-md cursor-pointer hover:bg-[#f2f2f22e] w-full"
+      onClick={navigationHandler}
+    >
       <span className="shrink-0">{icon}</span>
 
       <motion.p

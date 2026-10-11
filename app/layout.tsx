@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/providers/authProvider";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import ChatLayout from "@/components/layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
           <AuthProvider session={session}>
-            {children}
+            <ChatLayout>
+              {children}
+            </ChatLayout>
           </AuthProvider>
       </body>
     </html>

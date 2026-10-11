@@ -1,3 +1,4 @@
+"use client"
 import { SidebarProvider } from "@/context/sidebar.provider";
 import SideBar from "../sidebar";
 

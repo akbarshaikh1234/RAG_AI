@@ -59,10 +59,12 @@ export default function Home() {
   }
 
   return (
-    <section>
-      <ChatLayout>
-        <div className="grid grid-rows-[1fr_auto] w-full p-4">
-          <div></div>
+    <section className="w-full h-full">
+      {/* <ChatLayout> */}
+        <div className="grid grid-rows-[1fr_auto] w-full p-4 h-full">
+          <div>
+            asdas
+          </div>
           <div className="flex flex-col bg-[#292929] rounded-lg p-4">
             <div
               contentEditable={true}
@@ -76,7 +78,7 @@ export default function Home() {
             <div>asdasd</div>
           </div>
         </div>
-      </ChatLayout>
+      {/* </ChatLayout> */}
     </section>
   );
 }
